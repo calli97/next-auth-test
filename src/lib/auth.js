@@ -27,7 +27,7 @@ export const authOptions = {
                     },
                 });
 
-                if (!user || !credentials.password === user.password) {
+                if (!user || !(credentials.password === user.password)) {
                     return null;
                 }
 
@@ -36,6 +36,7 @@ export const authOptions = {
                     email: user.email,
                     name: user.name,
                     role: "Hey cool",
+                    edad: 2,
                 };
             },
         }),
@@ -47,6 +48,7 @@ export const authOptions = {
                 user: {
                     ...session.user,
                     role: token.role,
+                    edad: token.edad,
                 },
             };
         },
@@ -56,6 +58,7 @@ export const authOptions = {
                 return {
                     ...token,
                     role: u.role,
+                    edad: u.edad,
                 };
             }
             return token;
