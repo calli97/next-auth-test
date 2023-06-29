@@ -35,9 +35,30 @@ export const authOptions = {
                     id: user.id,
                     email: user.email,
                     name: user.name,
-                    randomKey: "Hey cool",
+                    role: "Hey cool",
                 };
             },
         }),
     ],
+    callbacks: {
+        session: ({ session, token }) => {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    role: token.role,
+                },
+            };
+        },
+        jwt: ({ token, user }) => {
+            if (user) {
+                const u = user;
+                return {
+                    ...token,
+                    role: u.role,
+                };
+            }
+            return token;
+        },
+    },
 };
